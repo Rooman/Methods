@@ -2,6 +2,35 @@ public class Methods {
     public static void main(String[] args) {
        testMax();
        testToCharArray();
+       testHasDuplicatesWhenDuplicatesOccurs();
+       testHasDuplicatesWhenNoDuplicatesInArray();
+    }
+
+    static void testHasDuplicatesWhenDuplicatesOccurs(){
+        byte[] array = {10, 15, 17, 100, 15};
+        boolean actual = hasDuplicates(array);
+        assertEquals("#3", true, actual);
+    }
+
+    static void testHasDuplicatesWhenNoDuplicatesInArray(){
+        byte[] array = {10, 15, 17, 100};
+        boolean actual = hasDuplicates(array);
+        assertEquals("#4", false, actual);
+    }
+
+    // bytes in array [0, 127]
+    // {1, 2, 1} => hasDuplicates [ false, true, true, ...]
+    static boolean hasDuplicates (byte[] array){
+        boolean [] hasDuplicates = new boolean[128];
+        for(byte value : array){ // value = 1
+            if(hasDuplicates[value]){ 
+                return true;
+            } else {
+                hasDuplicates[value] = true;
+            }
+        }
+
+        return false;
     }
 
     static void testToCharArray(){
@@ -44,6 +73,15 @@ public class Methods {
         int expected = 7;
         int actual = max(5,7);
         assertEquals("#1", expected, actual);
+    }
+
+    static void assertEquals(String testId, boolean expected, boolean actual) {
+        if(expected == actual) {
+            System.out.println("TEST " +testId+" PASSED!");
+        } else{
+            System.out.println("TEST " +testId+" FAILED! Expected: " 
+                + expected + ", actual: " + actual);
+        }
     }
 
     static void assertEquals(String testId, int expected, int actual) {
