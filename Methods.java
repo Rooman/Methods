@@ -7,7 +7,7 @@ public class Methods {
     }
 
     static void testHasDuplicatesWhenDuplicatesOccurs(){
-        byte[] array = {10, 15, 17, 100, 15};
+        byte[] array = {10, 15, 17, -100, 15};
         boolean actual = hasDuplicates(array);
         assertEquals("#3", true, actual);
     }
@@ -18,15 +18,16 @@ public class Methods {
         assertEquals("#4", false, actual);
     }
 
-    // bytes in array [0, 127]
+    // bytes in array [-128, 127]
     // {1, 2, 1} => hasDuplicates [ false, true, true, ...]
     static boolean hasDuplicates (byte[] array){
-        boolean [] hasDuplicates = new boolean[128];
+        boolean [] hasDuplicates = new boolean[256];
         for(byte value : array){ // value = 1
-            if(hasDuplicates[value]){ 
+            int index = value + 128;
+            if(hasDuplicates[index]){ 
                 return true;
             } else {
-                hasDuplicates[value] = true;
+                hasDuplicates[index] = true;
             }
         }
 
